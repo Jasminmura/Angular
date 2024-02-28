@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html ng-app="photoApp">
+
+<head>
+  <title>Random Photos</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="app.js"></script>
+  <style>
+    .photos-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .photo {
+      cursor: pointer;
+      margin: 5px;
+    }
+
+    .photo img{
+      max-width: 80px; /* Set a maximum width for larger screens */
+      max-height: 80px; /* Set a maximum height for larger screens */
+    }
+
+    .enlarged {
+      position: fixed;
+      top: 65%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .enlarged img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  </style>
+</head>
+
+<body ng-controller="PhotoController">
+
+  <div class="photos-container">
+    <div ng-repeat="photo in photos" class="photo" ng-click="enlargePhoto(photo)">
+      <img ng-src="{{ photo.url }}" alt="Random Photo">
+    </div>
+  </div>
+
+  <div ng-if="enlargedPhoto" class="enlarged" ng-click="closeEnlarged()">
+    <img ng-src="{{ enlargedPhoto.url }}" alt="Enlarged Photo">
+  </div>
+    <!-- your app code goes here -->
+
+    <!-- special scripts for integration in App Gallery - must be placed at the bottom of the HTML after your code -->
+    <script>
+        // custom config for the MTW app 
+        const mtwAppConfig = {
+            border: true // app border in the MTW page                    
+        }
+
+        ///////////////////////////////////////////////////////
+        // implement this functions in order to use private API        
+        const sendPrivateApiRequest = async () => {
+            // your code here:
+            // sendRequestToParent({ cat: 'getAssets' })
+        }        
+
+        const acceptPrivateApiResponse = async (data) => {
+            // process received data here:
+            // console.log(data)
+        }
+
+        // use this in order to send on document load
+        document.addEventListener('DOMContentLoaded', () => {
+            // your code here:
+            //sendRequestToParent({ method: 'getAssets' })
+        })
+
+    </script>
+    <script src="https://morethanwallet.com/appstore/index.js"></script>
+</body>
+
+</html>
